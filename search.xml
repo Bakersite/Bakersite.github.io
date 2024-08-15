@@ -1,6 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>Welcome to Bakersite</title>
+    <url>/2024/08/14/Welcome-to-Bakersite/</url>
+    <content><![CDATA[<p>這裡會分享一些科技相關的文章，可能有些人會因為不會寫程式而放棄去探索一些領域的內容，然而生成式AI其實可以解決程式能力的問題，希望這裡的內容，能幫助到對科技有興趣的人。文章中的程式碼大多數是由AI進行編寫，這裡的程式碼不是重點，最主要的目的是介紹一些好用得工具或是App。我會盡量將文章寫的淺顯易懂，讓更多人能體驗。</p>
+]]></content>
+  </entry>
+  <entry>
     <title>Jarvis Alpha</title>
     <url>/2024/08/15/Jarvis-Alpha/</url>
     <content><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>語音助理最廣為人知的應該是 Siri 以及 Alexa 了，而在電影 Iron man 中，有個 AI 叫做 J.A.R.V.I.S，專門幫助 Tony Stark 完成各種任務。雖然電影後面他發生了一些事，導致被另一個叫 Friday 的 AI 取代，有興趣的可以去觀看原作。其實我一直以來都很想有個語音AI，協助我處理各種事。兩年前我曾嘗試用 Open AI 的 ChatGPT API，由於 Open AI 訓練完 GPT3 模型之後，開始從開源逐漸走向收費，而 ChatGPT 的 API 免費版有用量限制，最後我專案還沒完成，卻已經用光所有的額度了。曾經有想過要自己訓練模型，但看著桌上的電腦，又默默地放下這個念頭，現階段訓練 AI 需要的硬體設備對我來說是遙不可及。但經過了兩年的時間，越來越多公司投入 AI 領域而且也「開源」了許多模型，也就是說不需要付費便能使用的 AI 模型。Jarvis 版本的命名採拉丁字母的順序，依照 Alpha, Beta, Gama…. 命名下去。這篇是 Jarvis Alpha 版本，我之後會陸續發部改良後的版本，雖然都叫 Jarvis 但其實使用的工具幾乎不一樣。Jarvis Alpha 版是以 Pyhon 進行編寫，我會將專案放在 <a href="https://github.com/Bakersite/Jarvis-Alpha.git">Jarvis-Alpha</a> 。</p>
@@ -32,7 +38,7 @@ A --> B --> C --> D --> A</pre>
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># initialize the recognizer</span></span><br><span class="line">r = sr.Recognizer()</span><br><span class="line"></span><br><span class="line"><span class="comment"># use the microphone as the source for input</span></span><br><span class="line"><span class="keyword">with</span> sr.Microphone() <span class="keyword">as</span> source:                             <span class="comment"># 設定麥克風為音訊輸入源</span></span><br><span class="line">	<span class="built_in">print</span>(<span class="string">&quot;Adjusting for ambient noise, please wait...&quot;</span>)</span><br><span class="line">	r.adjust_for_ambient_noise(source)                      <span class="comment"># 處理背景雜音</span></span><br><span class="line">	<span class="built_in">print</span>(<span class="string">&quot;Say something!&quot;</span>)</span><br><span class="line">	audio = r.listen(source)                                <span class="comment"># 開始收音</span></span><br><span class="line">	</span><br><span class="line">	<span class="keyword">try</span>:</span><br><span class="line">		message = r.recognize_google(audio)                 <span class="comment"># 將語音轉成文字</span></span><br><span class="line">		<span class="built_in">print</span>(<span class="string">&quot;ME: &quot;</span>, r.recognize_google(audio))</span><br><span class="line">	<span class="keyword">except</span> sr.UnknownValueError:                            <span class="comment"># 語音無法辨識</span></span><br><span class="line">		<span class="built_in">print</span>(<span class="string">&quot;Google Web Speech could not understand the audio&quot;</span>)</span><br><span class="line">	<span class="keyword">except</span> sr.Request <span class="keyword">as</span> e:                                 <span class="comment"># google伺服器錯誤訊息</span></span><br><span class="line">		<span class="built_in">print</span>(<span class="string">&quot;Could not request results form Google Web service&quot;</span>)</span><br></pre></td></tr></table></figure>
 
 <h2 id="Brain"><a href="#Brain" class="headerlink" title="Brain"></a>Brain</h2><p>確認已安裝 Hugging Chat API。</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">pip instal hugchat</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">pip install hugchat</span><br></pre></td></tr></table></figure>
 
 <p>接著將 Hugging Chat 導入到程式碼。</p>
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> hugchat <span class="keyword">import</span> hugchat</span><br><span class="line"><span class="keyword">from</span> hugchat.login <span class="keyword">import</span> Login</span><br></pre></td></tr></table></figure>
@@ -69,11 +75,5 @@ A --> B --> C --> D --> A</pre>
         <tag>gTTS</tag>
         <tag>AI</tag>
       </tags>
-  </entry>
-  <entry>
-    <title>Welcome to Bakersite</title>
-    <url>/2024/08/14/Welcome-to-Bakersite/</url>
-    <content><![CDATA[<p>這裡會分享一些科技相關的文章，可能有些人會因為不會寫程式而放棄去探索一些領域的內容，然而生成式AI其實可以解決程式能力的問題，希望這裡的內容，能幫助到對科技有興趣的人。文章中的程式碼大多數是由AI進行編寫，這裡的程式碼不是重點，最主要的目的是介紹一些好用得工具或是App。我會盡量將文章寫的淺顯易懂，讓更多人能體驗。</p>
-]]></content>
   </entry>
 </search>
