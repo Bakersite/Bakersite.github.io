@@ -20,29 +20,36 @@
     var CONFIG = {"hostname":"bakersite.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Bakersite">
-<meta property="og:url" content="https://bakersite.github.io/index.html">
+  <meta name="description" content="前言語音助理最廣為人知的應該是 Siri 以及 Alexa 了，而在電影 Iron man 中，有個 AI 叫做 J.A.R.V.I.S，專門幫助 Tony Stark 完成各種任務。雖然電影後面他發生了一些事，導致被另一個叫 Friday 的 AI 取代，有興趣的可以去觀看原作。其實我一直以來都很想有個語音AI，協助我處理各種事。兩年前我曾嘗試用 Open AI 的 ChatGPT API，由於">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Jarvis Alpha">
+<meta property="og:url" content="https://bakersite.github.io/2024/08/15/Jarvis-Alpha/index.html">
 <meta property="og:site_name" content="Bakersite">
+<meta property="og:description" content="前言語音助理最廣為人知的應該是 Siri 以及 Alexa 了，而在電影 Iron man 中，有個 AI 叫做 J.A.R.V.I.S，專門幫助 Tony Stark 完成各種任務。雖然電影後面他發生了一些事，導致被另一個叫 Friday 的 AI 取代，有興趣的可以去觀看原作。其實我一直以來都很想有個語音AI，協助我處理各種事。兩年前我曾嘗試用 Open AI 的 ChatGPT API，由於">
 <meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2024-08-15T08:20:45.000Z">
+<meta property="article:modified_time" content="2024-08-15T08:31:31.736Z">
 <meta property="article:author" content="Arthur Chen">
-<meta property="article:tag" content="Bakersite">
+<meta property="article:tag" content="Jarvis">
+<meta property="article:tag" content="Huggingface">
+<meta property="article:tag" content="gTTS">
+<meta property="article:tag" content="AI">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="https://bakersite.github.io/">
+<link rel="canonical" href="https://bakersite.github.io/2024/08/15/Jarvis-Alpha/">
 
 
 <script id="page-configurations">
   // https://hexo.io/docs/variables.html
   CONFIG.page = {
     sidebar: "",
-    isHome : true,
-    isPost : false,
+    isHome : false,
+    isPost : true,
     lang   : 'en'
   };
 </script>
 
-  <title>Bakersite</title>
+  <title>Jarvis Alpha | Bakersite</title>
   
 
 
@@ -168,9 +175,10 @@
         <div class="content-wrap">
           
 
-          <div class="content index posts-expand">
+          <div class="content post posts-expand">
             
-      
+
+    
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
@@ -186,10 +194,9 @@
       <meta itemprop="name" content="Bakersite">
     </span>
       <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2024/08/15/Jarvis-Alpha/" class="post-title-link" itemprop="url">Jarvis Alpha</a>
-        </h2>
+        <h1 class="post-title" itemprop="name headline">
+          Jarvis Alpha
+        </h1>
 
         <div class="post-meta">
             <span class="post-meta-item">
@@ -213,7 +220,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>語音助理最廣為人知的應該是 Siri 以及 Alexa 了，而在電影 Iron man 中，有個 AI 叫做 J.A.R.V.I.S，專門幫助 Tony Stark 完成各種任務。雖然電影後面他發生了一些事，導致被另一個叫 Friday 的 AI 取代，有興趣的可以去觀看原作。其實我一直以來都很想有個語音AI，協助我處理各種事。兩年前我曾嘗試用 Open AI 的 ChatGPT API，由於 Open AI 訓練完 GPT3 模型之後，開始從開源逐漸走向收費，而 ChatGPT 的 API 免費版有用量限制，最後我專案還沒完成，卻已經用光所有的額度了。曾經有想過要自己訓練模型，但看著桌上的電腦，又默默地放下這個念頭，現階段訓練 AI 需要的硬體設備對我來說是遙不可及。但經過了兩年的時間，越來越多公司投入 AI 領域而且也「開源」了許多模型，也就是說不需要付費便能使用的 AI 模型。Jarvis 版本的命名採拉丁字母的順序，依照 Alpha, Beta, Gama…. 命名下去。這篇是 Jarvis Alpha 版本，我之後會陸續發部改良後的版本，雖然都叫 Jarvis 但其實使用的工具幾乎不一樣。Jarvis Alpha 版是以 Pyhon 進行編寫，我會將專案放在 <a target="_blank" rel="noopener" href="https://github.com/Bakersite/Jarvis-Alpha.git">Jarvis-Alpha</a> 。</p>
+        <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>語音助理最廣為人知的應該是 Siri 以及 Alexa 了，而在電影 Iron man 中，有個 AI 叫做 J.A.R.V.I.S，專門幫助 Tony Stark 完成各種任務。雖然電影後面他發生了一些事，導致被另一個叫 Friday 的 AI 取代，有興趣的可以去觀看原作。其實我一直以來都很想有個語音AI，協助我處理各種事。兩年前我曾嘗試用 Open AI 的 ChatGPT API，由於 Open AI 訓練完 GPT3 模型之後，開始從開源逐漸走向收費，而 ChatGPT 的 API 免費版有用量限制，最後我專案還沒完成，卻已經用光所有的額度了。曾經有想過要自己訓練模型，但看著桌上的電腦，又默默地放下這個念頭，現階段訓練 AI 需要的硬體設備對我來說是遙不可及。但經過了兩年的時間，越來越多公司投入 AI 領域而且也「開源」了許多模型，也就是說不需要付費便能使用的 AI 模型。Jarvis 版本的命名採拉丁字母的順序，依照 Alpha, Beta, Gama…. 命名下去。這篇是 Jarvis Alpha 版本，我之後會陸續發部改良後的版本，雖然都叫 Jarvis 但其實使用的工具幾乎不一樣。Jarvis Alpha 版是以 Pyhon 進行編寫，我會將專案放在 <a target="_blank" rel="noopener" href="https://github.com/Bakersite/Jarvis-Alpha.git">Jarvis-Alpha</a> 。</p>
 <h1 id="Huggingface-的工具"><a href="#Huggingface-的工具" class="headerlink" title="Huggingface 的工具"></a>Huggingface 的工具</h1><h2 id="HuggingChat"><a href="#HuggingChat" class="headerlink" title="HuggingChat"></a>HuggingChat</h2><p>這邊要介紹 <a target="_blank" rel="noopener" href="https://huggingface.co/">Huggingface</a>，這是一個存放很多開源模型的平台，他除了有模型以外，也提供深度學習框架，有興趣的可以去探索一下，這邊會著墨在他底下一個叫 <a target="_blank" rel="noopener" href="https://huggingface.co/chat/">HuggingChat</a> 的生成式 AI 服務。由於在 Alpha 版中尚未用到使用 Huggingface 上的模型，因此有關模型的取用會留到 Beta 版在說明。</p>
 <p>HuggingChat 類似於大家熟悉的 ChatGPT ，比較不一樣在 HuggingChat 有許多種模型可以選擇。HuggingChat 也可以自定義 AI 的目的，像是以資深的軟體工程師來修正程式碼，可以在建立對話時便設定好，不需要每次都發送指定 AI 角色的 prompt。</p>
 <p>實作時會需要 Huggingface 的帳號，若要實作，可以先申請。</p>
@@ -273,80 +280,53 @@ A --> B --> C --> D --> A</pre>
 
 <h1 id="後記"><a href="#後記" class="headerlink" title="後記"></a>後記</h1><p>Github 上的檔案可能會晚點上，下一篇我會寫 Jarvis Beta 版，直接將預訓練好的模型載到電腦裡，越後面的版本呈現的效果越酷炫。</p>
 
-      
     </div>
 
     
     
     
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>Post author:  </strong>Arthur Chen
+  </li>
+  <li class="post-copyright-link">
+    <strong>Post link: </strong>
+    <a href="https://bakersite.github.io/2024/08/15/Jarvis-Alpha/" title="Jarvis Alpha">https://bakersite.github.io/2024/08/15/Jarvis-Alpha/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>Copyright Notice:  </strong>All articles in this blog are licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> unless stating additionally.
+  </li>
+</ul>
+</div>
+
+
       <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
+          <div class="post-tags">
+              <a href="/tags/Jarvis/" rel="tag"># Jarvis</a>
+              <a href="/tags/Huggingface/" rel="tag"># Huggingface</a>
+              <a href="/tags/gTTS/" rel="tag"># gTTS</a>
+              <a href="/tags/AI/" rel="tag"># AI</a>
+          </div>
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://bakersite.github.io/2024/08/14/Welcome-to-Bakersite/">
+        
 
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Arthur Chen">
-      <meta itemprop="description" content="">
-    </span>
 
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Bakersite">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2024/08/14/Welcome-to-Bakersite/" class="post-title-link" itemprop="url">Welcome to Bakersite</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-              
-
-              <time title="Created: 2024-08-14 17:44:42 / Modified: 17:44:49" itemprop="dateCreated datePublished" datetime="2024-08-14T17:44:42+08:00">2024-08-14</time>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>這裡會分享一些科技相關的文章，可能有些人會因為不會寫程式而放棄去探索一些領域的內容，然而生成式AI其實可以解決程式能力的問題，希望這裡的內容，能幫助到對科技有興趣的人。文章中的程式碼大多數是由AI進行編寫，這裡的程式碼不是重點，最主要的目的是介紹一些好用得工具或是App。我會盡量將文章寫的淺顯易懂，讓更多人能體驗。</p>
-
-      
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2024/08/14/Welcome-to-Bakersite/" rel="prev" title="Welcome to Bakersite">
+      <i class="fa fa-chevron-left"></i> Welcome to Bakersite
+    </a></div>
+      <div class="post-nav-item"></div>
     </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
       </footer>
+    
   </article>
   
   
-  
-
-
   
 
 
@@ -399,6 +379,7 @@ A --> B --> C --> D --> A</pre>
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Huggingface-%E7%9A%84%E5%B7%A5%E5%85%B7"><span class="nav-number">2.</span> <span class="nav-text">Huggingface 的工具</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#HuggingChat"><span class="nav-number">2.1.</span> <span class="nav-text">HuggingChat</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Hugging-Chat-API"><span class="nav-number">2.2.</span> <span class="nav-text">Hugging Chat API</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%AF%A6%E4%BD%9C"><span class="nav-number">3.</span> <span class="nav-text">實作</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B5%81%E7%A8%8B"><span class="nav-number">3.1.</span> <span class="nav-text">流程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AA%9E%E9%9F%B3%E8%BE%A8%E8%AD%98"><span class="nav-number">3.2.</span> <span class="nav-text">語音辨識</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Brain"><span class="nav-number">3.3.</span> <span class="nav-text">Brain</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AA%9E%E9%9F%B3%E5%90%88%E6%88%90"><span class="nav-number">3.4.</span> <span class="nav-text">語音合成</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%AE%8C%E6%95%B4%E7%9A%84%E7%A8%8B%E5%BC%8F%E7%A2%BC"><span class="nav-number">4.</span> <span class="nav-text">完整的程式碼</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%BE%8C%E8%A8%98"><span class="nav-number">5.</span> <span class="nav-text">後記</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
