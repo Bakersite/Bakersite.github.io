@@ -1,12 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>Welcome to Bakersite</title>
-    <url>/2024/08/14/Welcome-to-Bakersite/</url>
-    <content><![CDATA[<p>這裡會分享一些科技相關的文章，可能有些人會因為不會寫程式而放棄去探索一些領域的內容，然而生成式AI其實可以解決程式能力的問題，希望這裡的內容，能幫助到對科技有興趣的人。文章中的程式碼大多數是由AI進行編寫，這裡的程式碼不是重點，最主要的目的是介紹一些好用得工具或是App。我會盡量將文章寫的淺顯易懂，讓更多人能體驗。</p>
-]]></content>
-  </entry>
-  <entry>
     <title>Jarvis Alpha</title>
     <url>/2024/08/15/Jarvis-Alpha/</url>
     <content><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>語音助理最廣為人知的應該是 Siri 以及 Alexa 了，而在電影 Iron man 中，有個 AI 叫做 J.A.R.V.I.S，專門幫助 Tony Stark 完成各種任務。雖然電影後面他發生了一些事，導致被另一個叫 Friday 的 AI 取代，有興趣的可以去觀看原作。其實我一直以來都很想有個語音AI，協助我處理各種事。兩年前我曾嘗試用 Open AI 的 ChatGPT API，由於 Open AI 訓練完 GPT3 模型之後，開始從開源逐漸走向收費，而 ChatGPT 的 API 免費版有用量限制，最後我專案還沒完成，卻已經用光所有的額度了。<span id="more"></span>曾經有想過要自己訓練模型，但看著桌上的電腦，又默默地放下這個念頭，現階段訓練 AI 需要的硬體設備對我來說是遙不可及。但經過了兩年的時間，越來越多公司投入 AI 領域而且也「開源」了許多模型，也就是說不需要付費便能使用的 AI 模型。Jarvis 版本的命名採拉丁字母的順序，依照 Alpha, Beta, Gama…. 命名下去。這篇是 Jarvis Alpha 版本，我之後會陸續發部改良後的版本，雖然都叫 Jarvis 但其實使用的工具幾乎不一樣。Jarvis Alpha 版是以 Pyhon 進行編寫，我會將專案放在 <a href="https://github.com/Bakersite/Jarvis-Alpha.git">Jarvis-Alpha</a> 。</p>
@@ -75,5 +69,54 @@ A --> B --> C --> D --> A</pre>
         <tag>gTTS</tag>
         <tag>AI</tag>
       </tags>
+  </entry>
+  <entry>
+    <title>Jarvis Beta</title>
+    <url>/2024/08/19/Jarvis-Beta/</url>
+    <content><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>上一篇有提到 Huggingface 這次要來使用它的 pipeline 取用模型了。其實用 Hugging Chat 有一個弊端是伺服器運作不穩定，常常莫名其妙斷線，這問題不論是使用 Hugging Chat API 還是 Hugging Chat 自己的介面都有出現。<span id="more"></span>因此在編寫這個版本時，我使以改良 Jarvis 的大腦運行回主要目標。一開始曾想用 Huggingface 上的生成式模型，但因為硬體限制，所以只能使用 Inference API 在 Huggingface 伺服器運算完之後再傳回本機。其他的 STT(Speech to Text) 及 TTS(Text to Speech)模型還在硬體負荷範圍，因此我把 Google 的 TTS 換掉，畢竟我實在無法接受 Google 小姐的聲音，而 TTS 是因為我想加上喚醒詞(Jarvis)，因此順便把 TTS 也換掉。Beta 版<a href="https://huggingface.co/learn/audio-course/chapter7/voice-assistant">參考此網站</a>，這裡會寫的比較精簡，有興趣的可以進網站看看。</p>
+<h1 id="Huggingface"><a href="#Huggingface" class="headerlink" title="Huggingface"></a>Huggingface</h1><p><a href="https://huggingface.co/">Hugginface</a>，如同上一篇講到的，他是一個開源的模型平台，可以從上面下載到很多 AI 模型。在 Beta 版本中，我會下載 <a href="https://huggingface.co/MIT/ast-finetuned-speech-commands-v2">MIT&#x2F;ast-finetuned-speech-commands-v2</a>模型用來識別喚醒詞。比較可惜的是在訓練的模型裡沒有 Jarvis，這裡我選擇用 Marvin 來替代。然後會使用 <a href="https://huggingface.co/openai/whisper-base.en">whisper</a> 進行文字轉語音工作。生成語音則是下載 <a href="https://huggingface.co/microsoft/speecht5_tts">microsoft&#x2F;speecht5_tts</a>。至於 Beta 的大腦我會使用 Huggingface 特有的 Inference API 服務，這裡我選擇的是<a href="https://huggingface.co/tiiuae/falcon-7b-instruct">falcon7b</a>當作大腦生成回答。</p>
+<h1 id="實作"><a href="#實作" class="headerlink" title="實作"></a>實作</h1><pre class="mermaid">flowchart LR
+A(Whisper-STT)
+B[(Falcon7b-Inference API)]
+C(SpeechT5-TTS)
+A --> B --> C --> A</pre>
+<h1 id="語音辨識-STT"><a href="#語音辨識-STT" class="headerlink" title="語音辨識(STT)"></a>語音辨識(STT)</h1><p>Whisper 的語音辨識是由 Open AI 訓練的開源模型，如果經濟許可的話它也有付費的 API，但這樣的話可以考慮直接用 Chat GPT。</p>
+<p>首先要先導入pipeline，然後在這裡設定要用什麼運行，這邊是如果有 Nvidia的顯卡優先用，如果沒有就使用電腦的cpu。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> transformers <span class="keyword">import</span> pipeline</span><br><span class="line"><span class="keyword">import</span> torch</span><br><span class="line"></span><br><span class="line">device = <span class="string">&quot;cuda:0&quot;</span> <span class="keyword">if</span> torch.cuda.is_available() <span class="keyword">else</span> <span class="string">&quot;cpu&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>在這裡設定使用 whisper 語音辨識模型。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">transcriber = pipeline(</span><br><span class="line">    <span class="string">&quot;automatic-speech-recognition&quot;</span>, model=<span class="string">&quot;openai/whisper-base.en&quot;</span>, device=device</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+
+<p>這邊是編寫轉換的函式。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> sys</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">transcribe</span>(<span class="params">chunk_length_s=<span class="number">5.0</span>, stream_chunk_s=<span class="number">1.0</span></span>):</span><br><span class="line">    sampling_rate = transcriber.feature_extractor.sampling_rate</span><br><span class="line"></span><br><span class="line">    mic = ffmpeg_microphone_live(</span><br><span class="line">        sampling_rate=sampling_rate,</span><br><span class="line">        chunk_length_s=chunk_length_s,</span><br><span class="line">        stream_chunk_s=stream_chunk_s,</span><br><span class="line">    )</span><br><span class="line"></span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;Start speaking...&quot;</span>)</span><br><span class="line">    <span class="keyword">for</span> item <span class="keyword">in</span> transcriber(mic, generate_kwargs=&#123;<span class="string">&quot;max_new_tokens&quot;</span>: <span class="number">128</span>&#125;):</span><br><span class="line">        sys.stdout.write(<span class="string">&quot;\033[K&quot;</span>)</span><br><span class="line">        <span class="built_in">print</span>(item[<span class="string">&quot;text&quot;</span>], end=<span class="string">&quot;\r&quot;</span>)</span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> item[<span class="string">&quot;partial&quot;</span>][<span class="number">0</span>]:</span><br><span class="line">            <span class="keyword">break</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> item[<span class="string">&quot;text&quot;</span>]</span><br></pre></td></tr></table></figure>
+
+<p>使用 Huggingface 的 Inference API。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> huggingface_hub <span class="keyword">import</span> HfFolder</span><br><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">query</span>(<span class="params">text, model_id=<span class="string">&quot;tiiuae/falcon-7b-instruct&quot;</span></span>):</span><br><span class="line">    api_url = <span class="string">f&quot;https://api-inference.huggingface.co/models/<span class="subst">&#123;model_id&#125;</span>&quot;</span></span><br><span class="line">    headers = &#123;<span class="string">&quot;Authorization&quot;</span>: <span class="string">f&quot;Bearer <span class="subst">&#123;HfFolder().get_token()&#125;</span>&quot;</span>&#125;</span><br><span class="line">    payload = &#123;<span class="string">&quot;inputs&quot;</span>: text&#125;</span><br><span class="line"></span><br><span class="line">    <span class="built_in">print</span>(<span class="string">f&quot;Querying...: <span class="subst">&#123;text&#125;</span>&quot;</span>)</span><br><span class="line">    response = requests.post(api_url, headers=headers, json=payload)</span><br><span class="line">    <span class="keyword">return</span> response.json()[<span class="number">0</span>][<span class="string">&quot;generated_text&quot;</span>][<span class="built_in">len</span>(text) + <span class="number">1</span> :]</span><br></pre></td></tr></table></figure>
+
+<p>使用 SpeechT5 的 TTS 模型</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> transformers <span class="keyword">import</span> SpeechT5Processor, SpeechT5ForTextToSpeech, SpeechT5HifiGan</span><br><span class="line"></span><br><span class="line">processor = SpeechT5Processor.from_pretrained(<span class="string">&quot;microsoft/speecht5_tts&quot;</span>)</span><br><span class="line"></span><br><span class="line">model = SpeechT5ForTextToSpeech.from_pretrained(<span class="string">&quot;microsoft/speecht5_tts&quot;</span>).to(device)</span><br><span class="line">vocoder = SpeechT5HifiGan.from_pretrained(<span class="string">&quot;microsoft/speecht5_hifigan&quot;</span>).to(device)</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> datasets <span class="keyword">import</span> load_dataset</span><br><span class="line"></span><br><span class="line">embeddings_dataset = load_dataset(<span class="string">&quot;Matthijs/cmu-arctic-xvectors&quot;</span>, split=<span class="string">&quot;validation&quot;</span>)</span><br><span class="line">speaker_embeddings = torch.tensor(embeddings_dataset[<span class="number">7306</span>][<span class="string">&quot;xvector&quot;</span>]).unsqueeze(<span class="number">0</span>)</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">synthesise</span>(<span class="params">text</span>):</span><br><span class="line">    inputs = processor(text=text, return_tensors=<span class="string">&quot;pt&quot;</span>)</span><br><span class="line">    speech = model.generate_speech(</span><br><span class="line">        inputs[<span class="string">&quot;input_ids&quot;</span>].to(device), speaker_embeddings.to(device), vocoder=vocoder</span><br><span class="line">    )</span><br><span class="line">    <span class="keyword">return</span> speech.cpu()</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> IPython.display <span class="keyword">import</span> Audio</span><br><span class="line"></span><br><span class="line">audio = synthesise(</span><br><span class="line">    <span class="string">&quot;Hugging Face is a company that provides natural language processing and machine learning tools for developers.&quot;</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">Audio(audio, rate=<span class="number">16000</span>)</span><br></pre></td></tr></table></figure>
+
+<p>最後是主程式的部分</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">launch_fn()</span><br><span class="line">transcription = transcribe()</span><br><span class="line">response = query(transcription)</span><br><span class="line">audio = synthesise(response)</span><br><span class="line"></span><br><span class="line">Audio(audio, rate=<span class="number">16000</span>, autoplay=<span class="literal">True</span>)</span><br></pre></td></tr></table></figure>
+
+<h1 id="後記"><a href="#後記" class="headerlink" title="後記"></a>後記</h1><p>基本上這是參考 <a href="https://huggingface.co/learn/audio-course/chapter7/voice-assistant#speech-transcription">Huggingface voice assistant</a> 網站的，所以這邊只加了一些說明而已，有興趣的可以直接參考網站的製作，但這 Beta 版在我測試時有個 Bug，透過 Inference API 所產生的回答，會有點跟問題對不上，有點胡言亂語。</p>
+]]></content>
+      <tags>
+        <tag>Jarvis</tag>
+        <tag>Huggingface</tag>
+        <tag>AI</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Welcome to Bakersite</title>
+    <url>/2024/08/14/Welcome-to-Bakersite/</url>
+    <content><![CDATA[<p>這裡會分享一些科技相關的文章，可能有些人會因為不會寫程式而放棄去探索一些領域的內容，然而生成式AI其實可以解決程式能力的問題，希望這裡的內容，能幫助到對科技有興趣的人。文章中的程式碼大多數是由AI進行編寫，這裡的程式碼不是重點，最主要的目的是介紹一些好用得工具或是App。我會盡量將文章寫的淺顯易懂，讓更多人能體驗。</p>
+]]></content>
   </entry>
 </search>

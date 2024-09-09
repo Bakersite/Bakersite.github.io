@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 7.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/Shadow_with_black.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/Shadow_with_black.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"bakersite.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="前言上一篇有提到 Huggingface 這次要來使用它的 pipeline 取用模型了。其實用 Hugging Chat 有一個弊端是伺服器運作不穩定，常常莫名其妙斷線，這問題不論是使用 Hugging Chat API 還是 Hugging Chat 自己的介面都有出現。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Jarvis Beta">
+<meta property="og:url" content="https://bakersite.github.io/2024/08/19/Jarvis-Beta/index.html">
+<meta property="og:site_name" content="Bakersite">
+<meta property="og:description" content="前言上一篇有提到 Huggingface 這次要來使用它的 pipeline 取用模型了。其實用 Hugging Chat 有一個弊端是伺服器運作不穩定，常常莫名其妙斷線，這問題不論是使用 Hugging Chat API 還是 Hugging Chat 自己的介面都有出現。">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2024-08-19T14:04:55.000Z">
+<meta property="article:modified_time" content="2024-09-09T11:48:54.750Z">
+<meta property="article:author" content="Arthur Chen">
+<meta property="article:tag" content="Jarvis">
+<meta property="article:tag" content="Huggingface">
+<meta property="article:tag" content="AI">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://bakersite.github.io/2024/08/19/Jarvis-Beta/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
+
+  <title>Jarvis Beta | Bakersite</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Bakersite</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://bakersite.github.io/2024/08/19/Jarvis-Beta/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Arthur Chen">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Bakersite">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Jarvis Beta
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2024-08-19 22:04:55" itemprop="dateCreated datePublished" datetime="2024-08-19T22:04:55+08:00">2024-08-19</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2024-09-09 19:48:54" itemprop="dateModified" datetime="2024-09-09T19:48:54+08:00">2024-09-09</time>
+              </span>
+
+          
+            <span class="post-meta-item" title="Views">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-users"></i>
+              </span>
+              <span class="post-meta-item-text">Views: </span>
+              <span class="firestore-visitors-count"></span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>上一篇有提到 Huggingface 這次要來使用它的 pipeline 取用模型了。其實用 Hugging Chat 有一個弊端是伺服器運作不穩定，常常莫名其妙斷線，這問題不論是使用 Hugging Chat API 還是 Hugging Chat 自己的介面都有出現。<span id="more"></span>因此在編寫這個版本時，我使以改良 Jarvis 的大腦運行回主要目標。一開始曾想用 Huggingface 上的生成式模型，但因為硬體限制，所以只能使用 Inference API 在 Huggingface 伺服器運算完之後再傳回本機。其他的 STT(Speech to Text) 及 TTS(Text to Speech)模型還在硬體負荷範圍，因此我把 Google 的 TTS 換掉，畢竟我實在無法接受 Google 小姐的聲音，而 TTS 是因為我想加上喚醒詞(Jarvis)，因此順便把 TTS 也換掉。Beta 版<a target="_blank" rel="noopener" href="https://huggingface.co/learn/audio-course/chapter7/voice-assistant">參考此網站</a>，這裡會寫的比較精簡，有興趣的可以進網站看看。</p>
+<h1 id="Huggingface"><a href="#Huggingface" class="headerlink" title="Huggingface"></a>Huggingface</h1><p><a target="_blank" rel="noopener" href="https://huggingface.co/">Hugginface</a>，如同上一篇講到的，他是一個開源的模型平台，可以從上面下載到很多 AI 模型。在 Beta 版本中，我會下載 <a target="_blank" rel="noopener" href="https://huggingface.co/MIT/ast-finetuned-speech-commands-v2">MIT&#x2F;ast-finetuned-speech-commands-v2</a>模型用來識別喚醒詞。比較可惜的是在訓練的模型裡沒有 Jarvis，這裡我選擇用 Marvin 來替代。然後會使用 <a target="_blank" rel="noopener" href="https://huggingface.co/openai/whisper-base.en">whisper</a> 進行文字轉語音工作。生成語音則是下載 <a target="_blank" rel="noopener" href="https://huggingface.co/microsoft/speecht5_tts">microsoft&#x2F;speecht5_tts</a>。至於 Beta 的大腦我會使用 Huggingface 特有的 Inference API 服務，這裡我選擇的是<a target="_blank" rel="noopener" href="https://huggingface.co/tiiuae/falcon-7b-instruct">falcon7b</a>當作大腦生成回答。</p>
+<h1 id="實作"><a href="#實作" class="headerlink" title="實作"></a>實作</h1><pre class="mermaid">flowchart LR
+A(Whisper-STT)
+B[(Falcon7b-Inference API)]
+C(SpeechT5-TTS)
+A --> B --> C --> A</pre>
+<h1 id="語音辨識-STT"><a href="#語音辨識-STT" class="headerlink" title="語音辨識(STT)"></a>語音辨識(STT)</h1><p>Whisper 的語音辨識是由 Open AI 訓練的開源模型，如果經濟許可的話它也有付費的 API，但這樣的話可以考慮直接用 Chat GPT。</p>
+<p>首先要先導入pipeline，然後在這裡設定要用什麼運行，這邊是如果有 Nvidia的顯卡優先用，如果沒有就使用電腦的cpu。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> transformers <span class="keyword">import</span> pipeline</span><br><span class="line"><span class="keyword">import</span> torch</span><br><span class="line"></span><br><span class="line">device = <span class="string">&quot;cuda:0&quot;</span> <span class="keyword">if</span> torch.cuda.is_available() <span class="keyword">else</span> <span class="string">&quot;cpu&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>在這裡設定使用 whisper 語音辨識模型。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">transcriber = pipeline(</span><br><span class="line">    <span class="string">&quot;automatic-speech-recognition&quot;</span>, model=<span class="string">&quot;openai/whisper-base.en&quot;</span>, device=device</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+
+<p>這邊是編寫轉換的函式。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> sys</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">transcribe</span>(<span class="params">chunk_length_s=<span class="number">5.0</span>, stream_chunk_s=<span class="number">1.0</span></span>):</span><br><span class="line">    sampling_rate = transcriber.feature_extractor.sampling_rate</span><br><span class="line"></span><br><span class="line">    mic = ffmpeg_microphone_live(</span><br><span class="line">        sampling_rate=sampling_rate,</span><br><span class="line">        chunk_length_s=chunk_length_s,</span><br><span class="line">        stream_chunk_s=stream_chunk_s,</span><br><span class="line">    )</span><br><span class="line"></span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;Start speaking...&quot;</span>)</span><br><span class="line">    <span class="keyword">for</span> item <span class="keyword">in</span> transcriber(mic, generate_kwargs=&#123;<span class="string">&quot;max_new_tokens&quot;</span>: <span class="number">128</span>&#125;):</span><br><span class="line">        sys.stdout.write(<span class="string">&quot;\033[K&quot;</span>)</span><br><span class="line">        <span class="built_in">print</span>(item[<span class="string">&quot;text&quot;</span>], end=<span class="string">&quot;\r&quot;</span>)</span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> item[<span class="string">&quot;partial&quot;</span>][<span class="number">0</span>]:</span><br><span class="line">            <span class="keyword">break</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> item[<span class="string">&quot;text&quot;</span>]</span><br></pre></td></tr></table></figure>
+
+<p>使用 Huggingface 的 Inference API。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> huggingface_hub <span class="keyword">import</span> HfFolder</span><br><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">query</span>(<span class="params">text, model_id=<span class="string">&quot;tiiuae/falcon-7b-instruct&quot;</span></span>):</span><br><span class="line">    api_url = <span class="string">f&quot;https://api-inference.huggingface.co/models/<span class="subst">&#123;model_id&#125;</span>&quot;</span></span><br><span class="line">    headers = &#123;<span class="string">&quot;Authorization&quot;</span>: <span class="string">f&quot;Bearer <span class="subst">&#123;HfFolder().get_token()&#125;</span>&quot;</span>&#125;</span><br><span class="line">    payload = &#123;<span class="string">&quot;inputs&quot;</span>: text&#125;</span><br><span class="line"></span><br><span class="line">    <span class="built_in">print</span>(<span class="string">f&quot;Querying...: <span class="subst">&#123;text&#125;</span>&quot;</span>)</span><br><span class="line">    response = requests.post(api_url, headers=headers, json=payload)</span><br><span class="line">    <span class="keyword">return</span> response.json()[<span class="number">0</span>][<span class="string">&quot;generated_text&quot;</span>][<span class="built_in">len</span>(text) + <span class="number">1</span> :]</span><br></pre></td></tr></table></figure>
+
+<p>使用 SpeechT5 的 TTS 模型</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> transformers <span class="keyword">import</span> SpeechT5Processor, SpeechT5ForTextToSpeech, SpeechT5HifiGan</span><br><span class="line"></span><br><span class="line">processor = SpeechT5Processor.from_pretrained(<span class="string">&quot;microsoft/speecht5_tts&quot;</span>)</span><br><span class="line"></span><br><span class="line">model = SpeechT5ForTextToSpeech.from_pretrained(<span class="string">&quot;microsoft/speecht5_tts&quot;</span>).to(device)</span><br><span class="line">vocoder = SpeechT5HifiGan.from_pretrained(<span class="string">&quot;microsoft/speecht5_hifigan&quot;</span>).to(device)</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> datasets <span class="keyword">import</span> load_dataset</span><br><span class="line"></span><br><span class="line">embeddings_dataset = load_dataset(<span class="string">&quot;Matthijs/cmu-arctic-xvectors&quot;</span>, split=<span class="string">&quot;validation&quot;</span>)</span><br><span class="line">speaker_embeddings = torch.tensor(embeddings_dataset[<span class="number">7306</span>][<span class="string">&quot;xvector&quot;</span>]).unsqueeze(<span class="number">0</span>)</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">synthesise</span>(<span class="params">text</span>):</span><br><span class="line">    inputs = processor(text=text, return_tensors=<span class="string">&quot;pt&quot;</span>)</span><br><span class="line">    speech = model.generate_speech(</span><br><span class="line">        inputs[<span class="string">&quot;input_ids&quot;</span>].to(device), speaker_embeddings.to(device), vocoder=vocoder</span><br><span class="line">    )</span><br><span class="line">    <span class="keyword">return</span> speech.cpu()</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> IPython.display <span class="keyword">import</span> Audio</span><br><span class="line"></span><br><span class="line">audio = synthesise(</span><br><span class="line">    <span class="string">&quot;Hugging Face is a company that provides natural language processing and machine learning tools for developers.&quot;</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">Audio(audio, rate=<span class="number">16000</span>)</span><br></pre></td></tr></table></figure>
+
+<p>最後是主程式的部分</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">launch_fn()</span><br><span class="line">transcription = transcribe()</span><br><span class="line">response = query(transcription)</span><br><span class="line">audio = synthesise(response)</span><br><span class="line"></span><br><span class="line">Audio(audio, rate=<span class="number">16000</span>, autoplay=<span class="literal">True</span>)</span><br></pre></td></tr></table></figure>
+
+<h1 id="後記"><a href="#後記" class="headerlink" title="後記"></a>後記</h1><p>基本上這是參考 <a target="_blank" rel="noopener" href="https://huggingface.co/learn/audio-course/chapter7/voice-assistant#speech-transcription">Huggingface voice assistant</a> 網站的，所以這邊只加了一些說明而已，有興趣的可以直接參考網站的製作，但這 Beta 版在我測試時有個 Bug，透過 Inference API 所產生的回答，會有點跟問題對不上，有點胡言亂語。</p>
+
+    </div>
+
+    
+    
+    
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>Post author:  </strong>Arthur Chen
+  </li>
+  <li class="post-copyright-link">
+    <strong>Post link: </strong>
+    <a href="https://bakersite.github.io/2024/08/19/Jarvis-Beta/" title="Jarvis Beta">https://bakersite.github.io/2024/08/19/Jarvis-Beta/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>Copyright Notice:  </strong>All articles in this blog are licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/zh-TW" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> unless stating additionally.
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Jarvis/" rel="tag"># Jarvis</a>
+              <a href="/tags/Huggingface/" rel="tag"># Huggingface</a>
+              <a href="/tags/AI/" rel="tag"># AI</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2024/08/15/Jarvis-Alpha/" rel="prev" title="Jarvis Alpha">
+      <i class="fa fa-chevron-left"></i> Jarvis Alpha
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Huggingface"><span class="nav-number">2.</span> <span class="nav-text">Huggingface</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%AF%A6%E4%BD%9C"><span class="nav-number">3.</span> <span class="nav-text">實作</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%AA%9E%E9%9F%B3%E8%BE%A8%E8%AD%98-STT"><span class="nav-number">4.</span> <span class="nav-text">語音辨識(STT)</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%BE%8C%E8%A8%98"><span class="nav-number">5.</span> <span class="nav-text">後記</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Arthur Chen</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">3</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">tags</span>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/bakersite" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;bakersite" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+  </div>
+  <div class="cc-license motion-element" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/zh-TW" class="cc-opacity" rel="noopener" target="_blank"><img src="/images/cc-by-nc-sa.svg" alt="Creative Commons"></a>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2024</span>
+  <span class="with-love">
+    <i class="fab fa-pied-piper-hat"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">ShadowithBlack</span>
+</div><script color="0,0,255" opacity="0.5" zIndex="-1" count="99" src="https://cdn.jsdelivr.net/npm/canvas-nest.js@1/dist/canvas-nest.js"></script>
+
+
+
+        
+
+
+
+
+  <script src="https://www.gstatic.com/firebasejs/6.3.3/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/6.3.3/firebase-firestore.js"></script>
+  <script>
+    firebase.initializeApp({
+      apiKey   : 'AIzaSyAR9f2zqiHH5Jk8YPsetAojv8RRROPZuOc',
+      projectId: 'shadowithblack'
+    });
+
+    function getCount(doc, increaseCount) {
+      // IncreaseCount will be false when not in article page
+      return doc.get().then(d => {
+        var count = 0;
+        if (!d.exists) { // Has no data, initialize count
+          if (increaseCount) {
+            doc.set({
+              count: 1
+            });
+            count = 1;
+          }
+        } else { // Has data
+          count = d.data().count;
+          if (increaseCount) {
+            // If first view this article
+            doc.set({ // Increase count
+              count: count + 1
+            });
+            count++;
+          }
+        }
+
+        return count;
+      });
+    }
+
+    function appendCountTo(el) {
+      return count => {
+        el.innerText = count;
+      }
+    }
+  </script>
+  <script>
+    (function() {
+      var db = firebase.firestore();
+      var articles = db.collection('articles');
+
+      if (CONFIG.page.isPost) { // Is article page
+        var title = document.querySelector('.post-title').innerText.trim();
+        var doc = articles.doc(title);
+        var increaseCount = CONFIG.hostname === location.hostname;
+        if (localStorage.getItem(title)) {
+          increaseCount = false;
+        } else {
+          // Mark as visited
+          localStorage.setItem(title, true);
+        }
+        getCount(doc, increaseCount).then(appendCountTo(document.querySelector('.firestore-visitors-count')));
+      } else if (CONFIG.page.isHome) { // Is index page
+        var promises = [...document.querySelectorAll('.post-title')].map(element => {
+          var title = element.innerText.trim();
+          var doc = articles.doc(title);
+          return getCount(doc);
+        });
+        Promise.all(promises).then(counts => {
+          var metas = document.querySelectorAll('.firestore-visitors-count');
+          counts.forEach((val, idx) => {
+            appendCountTo(metas[idx])(val);
+          });
+        });
+      }
+    })();
+  </script>
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+<script>
+if (document.querySelectorAll('pre.mermaid').length) {
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/mermaid@8/dist/mermaid.min.js', () => {
+    mermaid.initialize({
+      theme    : 'forest',
+      logLevel : 3,
+      flowchart: { curve     : 'linear' },
+      gantt    : { axisFormat: '%m/%d/%Y' },
+      sequence : { actorMargin: 50 }
+    });
+  }, window.mermaid);
+}
+</script>
+
+
+  
+
+  
+
+</body>
+</html>
