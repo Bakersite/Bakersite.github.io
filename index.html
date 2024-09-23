@@ -174,6 +174,91 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://bakersite.github.io/2024/09/23/Ollama/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Arthur Chen">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Bakersite">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2024/09/23/Ollama/" class="post-title-link" itemprop="url">Ollama</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2024-09-23 20:56:43 / Modified: 20:57:36" itemprop="dateCreated datePublished" datetime="2024-09-23T20:56:43+08:00">2024-09-23</time>
+            </span>
+
+          
+            <span class="post-meta-item" title="Views">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-users"></i>
+              </span>
+              <span class="post-meta-item-text">Views: </span>
+              <span class="firestore-visitors-count"></span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>前言</p>
+<p>這次要介紹一個好用的軟體能讓 AI 模型在本機上運行，不用擔心數據被拿去當作訓練資料&lt;–!more–&gt;</p>
+<h2 id="何謂-Ollama"><a href="#何謂-Ollama" class="headerlink" title="何謂 Ollama"></a>何謂 Ollama</h2><p><a target="_blank" rel="noopener" href="https://ollama.com/">Ollama</a> 是一個開源軟體，能夠將 LLM（大型語言模型）在本地端運行，而且可以不需要使用 GPU。當然，要使用 GPU來加速運算也是沒問題的。他提供許多開源的語言模型如：Llama 3.1, Mistral，當然除了大型的模型以外，也有一些小型的模型如：Phi-3，可以用於 RAG 的訓練，之後會再提一些有關 RAG 的東西。</p>
+<h2 id="如何使用-Ollama"><a href="#如何使用-Ollama" class="headerlink" title="如何使用 Ollama"></a>如何使用 Ollama</h2><p>最簡單的就是進入 <a target="_blank" rel="noopener" href="https://ollama.com/">Ollama</a> 官網，點下 Download，然後照著他的指示安裝，或著你是用 Mac OS 的可以用 hombrew 來安裝。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">brew install ollama</span><br></pre></td></tr></table></figure>
+
+<p>若使用 Linux 系統的除了從官網下載，也可以使用以下命令。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl https://ollama.ai/install.sh | sh</span><br></pre></td></tr></table></figure>
+
+<p>安裝好以後，可以到官網尋找喜歡的模型，複製貼上網站上的 run 指令，或是已有想運行的模型，則可以參照以下指令，這裡會用 llama3.1 8b 做示範。</p>
+<p>這邊會先下載 llama3.1 8b 的模型，可能有些久，因為模型檔案有點大。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ollama pull llama3.1:8b</span><br></pre></td></tr></table></figure>
+
+<p>接著可以使用 run 指令來運行 llama3.1 8b。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ollama run llama3.1:8b</span><br></pre></td></tr></table></figure>
+
+<p>如果想看你下載了哪些模型，可以使用以下命令。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ollama list</span><br></pre></td></tr></table></figure>
+
+<h2 id="後記"><a href="#後記" class="headerlink" title="後記"></a>後記</h2><p>運行之後就可以把它當 ChatGPT 或是其他的 AI 聊天軟體使用了，下一章會將 Ollama 結合 Openweb UI，可以讓 AI 讀取電腦本機檔案，雖然這跟 ChatGPT 類似，但 Ollama + Openweb UI 是讓模型完全在本地運行，不用擔心資料外洩，而且 Ollama 和 Openweb UI 是免費的。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
     <link itemprop="mainEntityOfPage" href="https://bakersite.github.io/2024/08/19/Jarvis-Beta/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -205,7 +290,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2024-09-09 19:48:54" itemprop="dateModified" datetime="2024-09-09T19:48:54+08:00">2024-09-09</time>
+                <time title="Modified: 2024-09-23 20:49:57" itemprop="dateModified" datetime="2024-09-23T20:49:57+08:00">2024-09-23</time>
               </span>
 
           
@@ -276,10 +361,16 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">Posted on</span>
-              
 
-              <time title="Created: 2024-08-15 16:20:45 / Modified: 17:48:49" itemprop="dateCreated datePublished" datetime="2024-08-15T16:20:45+08:00">2024-08-15</time>
+              <time title="Created: 2024-08-15 16:20:45" itemprop="dateCreated datePublished" datetime="2024-08-15T16:20:45+08:00">2024-08-15</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2024-09-23 20:57:34" itemprop="dateModified" datetime="2024-09-23T20:57:34+08:00">2024-09-23</time>
+              </span>
 
           
             <span class="post-meta-item" title="Views">
@@ -454,7 +545,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">3</span>
+          <span class="site-state-item-count">4</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
