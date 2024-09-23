@@ -71,37 +71,6 @@ A --> B --> C --> D --> A</pre>
       </tags>
   </entry>
   <entry>
-    <title>Welcome to Bakersite</title>
-    <url>/2024/08/14/Welcome-to-Bakersite/</url>
-    <content><![CDATA[<p>這裡會分享一些科技相關的文章，可能有些人會因為不會寫程式而放棄去探索一些領域的內容，然而生成式AI其實可以解決程式能力的問題，希望這裡的內容，能幫助到對科技有興趣的人。文章中的程式碼大多數是由AI進行編寫，這裡的程式碼不是重點，最主要的目的是介紹一些好用得工具或是App。我會盡量將文章寫的淺顯易懂，讓更多人能體驗。</p>
-]]></content>
-  </entry>
-  <entry>
-    <title>Ollama</title>
-    <url>/2024/09/23/Ollama/</url>
-    <content><![CDATA[<p>前言</p>
-<p>這次要介紹一個好用的軟體能讓 AI 模型在本機上運行，不用擔心數據被拿去當作訓練資料<span id="more"></span></p>
-<h2 id="何謂-Ollama"><a href="#何謂-Ollama" class="headerlink" title="何謂 Ollama"></a>何謂 Ollama</h2><p><a href="https://ollama.com/">Ollama</a> 是一個開源軟體，能夠將 LLM（大型語言模型）在本地端運行，而且可以不需要使用 GPU。當然，要使用 GPU來加速運算也是沒問題的。他提供許多開源的語言模型如：Llama 3.1, Mistral，當然除了大型的模型以外，也有一些小型的模型如：Phi-3，可以用於 RAG 的訓練，之後會再提一些有關 RAG 的東西。</p>
-<h2 id="如何使用-Ollama"><a href="#如何使用-Ollama" class="headerlink" title="如何使用 Ollama"></a>如何使用 Ollama</h2><p>最簡單的就是進入 <a href="https://ollama.com/">Ollama</a> 官網，點下 Download，然後照著他的指示安裝，或著你是用 Mac OS 的可以用 hombrew 來安裝。</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">brew install ollama</span><br></pre></td></tr></table></figure>
-
-<p>若使用 Linux 系統的除了從官網下載，也可以使用以下命令。</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">curl https://ollama.ai/install.sh | sh</span><br></pre></td></tr></table></figure>
-
-<p>安裝好以後，可以到官網尋找喜歡的模型，複製貼上網站上的 run 指令，或是已有想運行的模型，則可以參照以下指令，這裡會用 llama3.1 8b 做示範。</p>
-<p>這邊會先下載 llama3.1 8b 的模型，可能有些久，因為模型檔案有點大。</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">ollama pull llama3.1:8b</span><br></pre></td></tr></table></figure>
-
-<p>接著可以使用 run 指令來運行 llama3.1 8b。</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">ollama run llama3.1:8b</span><br></pre></td></tr></table></figure>
-
-<p>如果想看你下載了哪些模型，可以使用以下命令。</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">ollama list</span><br></pre></td></tr></table></figure>
-
-<h2 id="後記"><a href="#後記" class="headerlink" title="後記"></a>後記</h2><p>運行之後就可以把它當 ChatGPT 或是其他的 AI 聊天軟體使用了，下一章會將 Ollama 結合 Openweb UI，可以讓 AI 讀取電腦本機檔案，雖然這跟 ChatGPT 類似，但 Ollama + Openweb UI 是讓模型完全在本地運行，不用擔心資料外洩，而且 Ollama 和 Openweb UI 是免費的。</p>
-]]></content>
-  </entry>
-  <entry>
     <title>Jarvis Beta</title>
     <url>/2024/08/19/Jarvis-Beta/</url>
     <content><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>上一篇有提到 Huggingface 這次要來使用它的 pipeline 取用模型了。其實用 Hugging Chat 有一個弊端是伺服器運作不穩定，常常莫名其妙斷線，這問題不論是使用 Hugging Chat API 還是 Hugging Chat 自己的介面都有出現。<span id="more"></span>因此在編寫這個版本時，我使以改良 Jarvis 的大腦運行回主要目標。一開始曾想用 Huggingface 上的生成式模型，但因為硬體限制，所以只能使用 Inference API 在 Huggingface 伺服器運算完之後再傳回本機。其他的 STT(Speech to Text) 及 TTS(Text to Speech)模型還在硬體負荷範圍，因此我把 Google 的 TTS 換掉，畢竟我實在無法接受 Google 小姐的聲音，而 TTS 是因為我想加上喚醒詞(Jarvis)，因此順便把 TTS 也換掉。Beta 版<a href="https://huggingface.co/learn/audio-course/chapter7/voice-assistant">參考此網站</a>，這裡會寫的比較精簡，有興趣的可以進網站看看。</p>
@@ -144,5 +113,35 @@ A --> B --> C --> A</pre>
         <tag>Huggingface</tag>
         <tag>AI</tag>
       </tags>
+  </entry>
+  <entry>
+    <title>Welcome to Bakersite</title>
+    <url>/2024/08/14/Welcome-to-Bakersite/</url>
+    <content><![CDATA[<p>這裡會分享一些科技相關的文章，可能有些人會因為不會寫程式而放棄去探索一些領域的內容，然而生成式AI其實可以解決程式能力的問題，希望這裡的內容，能幫助到對科技有興趣的人。文章中的程式碼大多數是由AI進行編寫，這裡的程式碼不是重點，最主要的目的是介紹一些好用得工具或是App。我會盡量將文章寫的淺顯易懂，讓更多人能體驗。</p>
+]]></content>
+  </entry>
+  <entry>
+    <title>Ollama</title>
+    <url>/2024/09/23/Ollama/</url>
+    <content><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>這次要介紹一個好用的軟體能讓 AI 模型在本機上運行，不用擔心數據被拿去當作訓練資料<span id="more"></span></p>
+<h2 id="何謂-Ollama"><a href="#何謂-Ollama" class="headerlink" title="何謂 Ollama"></a>何謂 Ollama</h2><p><a href="https://ollama.com/">Ollama</a> 是一個開源軟體，能夠將 LLM（大型語言模型）在本地端運行，而且可以不需要使用 GPU。當然，要使用 GPU來加速運算也是沒問題的。他提供許多開源的語言模型如：Llama 3.1, Mistral，當然除了大型的模型以外，也有一些小型的模型如：Phi-3，可以用於 RAG 的訓練，之後會再提一些有關 RAG 的東西。</p>
+<h2 id="如何使用-Ollama"><a href="#如何使用-Ollama" class="headerlink" title="如何使用 Ollama"></a>如何使用 Ollama</h2><p>最簡單的就是進入 <a href="https://ollama.com/">Ollama</a> 官網，點下 Download，然後照著他的指示安裝，或著你是用 Mac OS 的可以用 hombrew 來安裝。</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">brew install ollama</span><br></pre></td></tr></table></figure>
+
+<p>若使用 Linux 系統的除了從官網下載，也可以使用以下命令。</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">curl https://ollama.ai/install.sh | sh</span><br></pre></td></tr></table></figure>
+
+<p>安裝好以後，可以到官網尋找喜歡的模型，複製貼上網站上的 run 指令，或是已有想運行的模型，則可以參照以下指令，這裡會用 llama3.1 8b 做示範。</p>
+<p>這邊會先下載 llama3.1 8b 的模型，可能有些久，因為模型檔案有點大。</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">ollama pull llama3.1:8b</span><br></pre></td></tr></table></figure>
+
+<p>接著可以使用 run 指令來運行 llama3.1 8b。</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">ollama run llama3.1:8b</span><br></pre></td></tr></table></figure>
+
+<p>如果想看你下載了哪些模型，可以使用以下命令。</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">ollama list</span><br></pre></td></tr></table></figure>
+
+<h2 id="後記"><a href="#後記" class="headerlink" title="後記"></a>後記</h2><p>運行之後就可以把它當 ChatGPT 或是其他的 AI 聊天軟體使用了，下一章會將 Ollama 結合 Openweb UI，可以讓 AI 讀取電腦本機檔案，雖然這跟 ChatGPT 類似，但 Ollama + Openweb UI 是讓模型完全在本地運行，不用擔心資料外洩，而且 Ollama 和 Openweb UI 是免費的。</p>
+]]></content>
   </entry>
 </search>
