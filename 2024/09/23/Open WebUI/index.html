@@ -20,20 +20,20 @@
     var CONFIG = {"hostname":"bakersite.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="這裡會分享一些科技相關的文章，可能有些人會因為不會寫程式而放棄去探索一些領域的內容，然而生成式AI其實可以解決程式能力的問題，希望這裡的內容，能幫助到對科技有興趣的人。文章中的程式碼大多數是由AI進行編寫，這裡的程式碼不是重點，最主要的目的是介紹一些好用得工具或是App。我會盡量將文章寫的淺顯易懂，讓更多人能體驗。">
+  <meta name="description" content="前言上次介紹完了 Ollama ，這次要提供一個有趣 UI 介面，可以讓 Ollama 的模型有個更美觀的地方運行，看起來會專業很多，而且還可以讀取檔案進行推論。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Welcome to Bakersite">
-<meta property="og:url" content="https://bakersite.github.io/2024/08/14/Welcome-to-Bakersite/index.html">
+<meta property="og:title" content="WebUI">
+<meta property="og:url" content="https://bakersite.github.io/2024/09/23/Open%20WebUI/index.html">
 <meta property="og:site_name" content="Bakersite">
-<meta property="og:description" content="這裡會分享一些科技相關的文章，可能有些人會因為不會寫程式而放棄去探索一些領域的內容，然而生成式AI其實可以解決程式能力的問題，希望這裡的內容，能幫助到對科技有興趣的人。文章中的程式碼大多數是由AI進行編寫，這裡的程式碼不是重點，最主要的目的是介紹一些好用得工具或是App。我會盡量將文章寫的淺顯易懂，讓更多人能體驗。">
+<meta property="og:description" content="前言上次介紹完了 Ollama ，這次要提供一個有趣 UI 介面，可以讓 Ollama 的模型有個更美觀的地方運行，看起來會專業很多，而且還可以讀取檔案進行推論。">
 <meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2024-08-14T09:44:42.000Z">
-<meta property="article:modified_time" content="2024-08-14T09:44:49.875Z">
+<meta property="article:published_time" content="2024-09-23T13:14:56.000Z">
+<meta property="article:modified_time" content="2024-09-24T10:32:13.673Z">
 <meta property="article:author" content="Arthur Chen">
 <meta property="article:tag" content="Bakersite">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="https://bakersite.github.io/2024/08/14/Welcome-to-Bakersite/">
+<link rel="canonical" href="https://bakersite.github.io/2024/09/23/Open%20WebUI/">
 
 
 <script id="page-configurations">
@@ -46,7 +46,7 @@
   };
 </script>
 
-  <title>Welcome to Bakersite | Bakersite</title>
+  <title>WebUI | Bakersite</title>
   
 
 
@@ -179,7 +179,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://bakersite.github.io/2024/08/14/Welcome-to-Bakersite/">
+    <link itemprop="mainEntityOfPage" href="https://bakersite.github.io/2024/09/23/Open%20WebUI/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -192,7 +192,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          Welcome to Bakersite
+          WebUI
         </h1>
 
         <div class="post-meta">
@@ -201,10 +201,16 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">Posted on</span>
-              
 
-              <time title="Created: 2024-08-14 17:44:42 / Modified: 17:44:49" itemprop="dateCreated datePublished" datetime="2024-08-14T17:44:42+08:00">2024-08-14</time>
+              <time title="Created: 2024-09-23 21:14:56" itemprop="dateCreated datePublished" datetime="2024-09-23T21:14:56+08:00">2024-09-23</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2024-09-24 18:32:13" itemprop="dateModified" datetime="2024-09-24T18:32:13+08:00">2024-09-24</time>
+              </span>
 
           
             <span class="post-meta-item" title="Views">
@@ -224,7 +230,35 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p>這裡會分享一些科技相關的文章，可能有些人會因為不會寫程式而放棄去探索一些領域的內容，然而生成式AI其實可以解決程式能力的問題，希望這裡的內容，能幫助到對科技有興趣的人。文章中的程式碼大多數是由AI進行編寫，這裡的程式碼不是重點，最主要的目的是介紹一些好用得工具或是App。我會盡量將文章寫的淺顯易懂，讓更多人能體驗。</p>
+        <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>上次介紹完了 Ollama ，這次要提供一個有趣 UI 介面，可以讓 Ollama 的模型有個更美觀的地方運行，看起來會專業很多，而且還可以讀取檔案進行推論。<span id="more"></span></p>
+<h1 id="Open-WebUI-介紹"><a href="#Open-WebUI-介紹" class="headerlink" title="Open WebUI 介紹"></a>Open WebUI 介紹</h1><p>Open WebUI 就是一個介面，可以選擇不同的 AI 模型來進行文字或檔案的處理，如同 ChatGPT的介面，然而他可以選則不同的模型，甚至也可以使用 ChatGPT 的 API 來使用 GPT-3, GPT-4o…等 Open AI 的模型。</p>
+<h1 id=""><a href="#" class="headerlink" title=""></a></h1><h1 id="Open-WebUI-with-Ollama"><a href="#Open-WebUI-with-Ollama" class="headerlink" title="Open WebUI with Ollama"></a>Open WebUI with Ollama</h1><p>可以參考 Github 上的步驟安裝，他提供了一些安裝方法，這邊會使用 Docker 來安裝，因為 Docker 安裝比較容易，這邊會以 Ollama 在本機的狀況下安裝，若 Ollama 不在本機上，可以參照 Github 上的指示。</p>
+<h3 id="-1"><a href="#-1" class="headerlink" title=""></a></h3><h3 id="安裝-Docker-Desktop"><a href="#安裝-Docker-Desktop" class="headerlink" title="安裝 Docker Desktop"></a>安裝 Docker Desktop</h3><p>在使用 Docker 安裝 Open WebUI 以前，請先確保以安裝 Docker Desktop。請至 [Docker](<a target="_blank" rel="noopener" href="https://www.docker.com/products/docker-desktop/">Docker Desktop: The #1 Containerization Tool for Developers | Docker</a> 的官網安裝，若是使用 Linux 系統的，以下提供 Arch linux 上的安裝，也可以不用參考我的版本，可以依官網指示下載。</p>
+<p>下載 Docker Desktop binary 檔案，檔案<a target="_blank" rel="noopener" href="https://docs.docker.com/desktop/release-notes/">版本</a>請至官網查詢。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">wget https://download.docker.com/linux/static/stable/x86_64/docker-27.2.1.tgz -qO- | tar xvfz - docker/docker --strip-components=1</span><br><span class="line"><span class="built_in">mv</span> ./docker /usr/local/bin</span><br></pre></td></tr></table></figure>
+
+<p>安裝檔案。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> pacman -U ./docker-desktop-x86_64.pkg.tar.zst</span><br></pre></td></tr></table></figure>
+
+<p>安裝完後就可以運行了。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">systemctl --user start docker-desktop</span><br></pre></td></tr></table></figure>
+
+<h3 id="安裝-Open-WebUI"><a href="#安裝-Open-WebUI" class="headerlink" title="安裝 Open WebUI"></a>安裝 Open WebUI</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run -d -p 3000:8080 --add-host=host.docker.internal:host-gateway -v open-webui:/app/backend/data --name open-webui --restart always ghcr.io/open-webui/open-webui:main</span><br></pre></td></tr></table></figure>
+
+<p>這邊如果有需要用到 GPU 來運算的請執行以下指令。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run -d -p 3000:8080 --gpus=all -v ollama:/root/.ollama -v open-webui:/app/backend/data --name open-webui --restart always ghcr.io/open-webui/open-webui:ollama</span><br></pre></td></tr></table></figure>
+
+<p>若是要只用 CPU 來運算的則執行以下指令。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run -d -p 3000:8080 -v ollama:/root/.ollama -v open-webui:/app/backend/data --name open-webui --restart always ghcr.io/open-webui/open-webui:ollama</span><br></pre></td></tr></table></figure>
+
+<p>安裝完成後可以去 Doker Desktop 上點擊運行的連結，或是直接在瀏覽器中輸入<a target="_blank" rel="noopener" href="http://localhost:3000/">http://localhost:3000</a>，這樣就可以進入 Open WebUI 裡面。</p>
+<h1 id="進入-Open-WebUI"><a href="#進入-Open-WebUI" class="headerlink" title="進入 Open WebUI"></a>進入 Open WebUI</h1><p>初次進入 Open WebUI 會需要建立一個帳號，不用擔心，這個帳號是建立在本機上，不會需要網路連線，設定完之後就可以登入了。進入後介面就跟 Chat GPT 或是其他的 AI 聊天界面相同，只是要記得再開啟新的對話後，記得要選擇模型。如果要使用 Ollama 的模型，直接在模型選擇中選取以下載的模型。</p>
+<h1 id="Open-WebUI-結合-Groq"><a href="#Open-WebUI-結合-Groq" class="headerlink" title="Open WebUI 結合 Groq"></a>Open WebUI 結合 Groq</h1><p>這裡的 Groq 不是 Elon Musk 的 AI 模型，而是一家人工智慧公司，他使用了 LPU 的推論引擎，使得他的推理速度非常的快，近乎在幾秒內就可以完成。</p>
+<h2 id="Groq-API-Key"><a href="#Groq-API-Key" class="headerlink" title="Groq API Key"></a>Groq API Key</h2><p>首先要先註冊一個 Groq 帳號，在 <a target="_blank" rel="noopener" href="https://console.groq.com/login">Groq Cloud</a> 中註冊一個帳號，接著到 <a target="_blank" rel="noopener" href="https://console.groq.com/keys">API Key</a> 新增一個 API 鑰匙，名稱可以隨意取，但密鑰要記得，因為他只會顯示一次。</p>
+<h2 id="Open-WebUI-連接到-Groq"><a href="#Open-WebUI-連接到-Groq" class="headerlink" title="Open WebUI 連接到 Groq"></a>Open WebUI 連接到 Groq</h2><p>進入 Open WebUI 中，點擊左下角的<strong>姓名</strong>，進入<strong>設置</strong>，點擊<strong>管理員控制台</strong>，點入<strong>連線</strong>，在 OpenAI API 那邊有個<strong>加號</strong>，點下去，新增一個 API 連接。在 <strong>API 基礎 URL</strong> 輸入 <em><a target="_blank" rel="noopener" href="https://api.groq.com/openai/v1">https://api.groq.com/openai/v1</a></em> ，API 金鑰則輸入剛創建的 Groq 金鑰。順帶一提，如果要用 Open AI 的 API 可以直接在第一欄的金鑰輸入，因為 Open AI API 為預設欄位。</p>
+<h2 id="選擇-Groq-模型"><a href="#選擇-Groq-模型" class="headerlink" title="選擇 Groq 模型"></a>選擇 Groq 模型</h2><p>在連接完成後，可以在模型選擇地方看到一個連接或是迴紋針的符號，那些模型就是透過 Groq 連線的。</p>
+<h1 id="支援-RAG-系統"><a href="#支援-RAG-系統" class="headerlink" title="支援 RAG 系統"></a>支援 RAG 系統</h1><p>Open Web UI 是可以將檔案上傳後用選好的 LLM 模型進行推論，可以用來檢索文件，或是快速摘要都很方便。</p>
+<h1 id="後記"><a href="#後記" class="headerlink" title="後記"></a>後記</h1><p>之後會回歸 Jarvis Gama 版本，在 Gama 版本中，我會使用 Groq API 來讓 llama3.1 成為 Jarvis 的大腦，他的推論速度會比前兩版還要快速。</p>
 
     </div>
 
@@ -240,7 +274,7 @@
   </li>
   <li class="post-copyright-link">
     <strong>Post link: </strong>
-    <a href="https://bakersite.github.io/2024/08/14/Welcome-to-Bakersite/" title="Welcome to Bakersite">https://bakersite.github.io/2024/08/14/Welcome-to-Bakersite/</a>
+    <a href="https://bakersite.github.io/2024/09/23/Open%20WebUI/" title="WebUI">https://bakersite.github.io/2024/09/23/Open WebUI/</a>
   </li>
   <li class="post-copyright-license">
     <strong>Copyright Notice:  </strong>All articles in this blog are licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/zh-TW" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> unless stating additionally.
@@ -256,11 +290,11 @@
 
         
     <div class="post-nav">
-      <div class="post-nav-item"></div>
       <div class="post-nav-item">
-    <a href="/2024/08/15/Jarvis-Alpha/" rel="next" title="Jarvis Alpha">
-      Jarvis Alpha <i class="fa fa-chevron-right"></i>
+    <a href="/2024/09/23/Ollama/" rel="prev" title="Ollama">
+      <i class="fa fa-chevron-left"></i> Ollama
     </a></div>
+      <div class="post-nav-item"></div>
     </div>
       </footer>
     
@@ -319,6 +353,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Open-WebUI-%E4%BB%8B%E7%B4%B9"><span class="nav-number">2.</span> <span class="nav-text">Open WebUI 介紹</span></a></li><li class="nav-item nav-level-1"><a class="nav-link"><span class="nav-number">3.</span> <span class="nav-text"></span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Open-WebUI-with-Ollama"><span class="nav-number">4.</span> <span class="nav-text">Open WebUI with Ollama</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#-1"><span class="nav-number">4.0.1.</span> <span class="nav-text"></span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%89%E8%A3%9D-Docker-Desktop"><span class="nav-number">4.0.2.</span> <span class="nav-text">安裝 Docker Desktop</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%89%E8%A3%9D-Open-WebUI"><span class="nav-number">4.0.3.</span> <span class="nav-text">安裝 Open WebUI</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%80%B2%E5%85%A5-Open-WebUI"><span class="nav-number">5.</span> <span class="nav-text">進入 Open WebUI</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Open-WebUI-%E7%B5%90%E5%90%88-Groq"><span class="nav-number">6.</span> <span class="nav-text">Open WebUI 結合 Groq</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Groq-API-Key"><span class="nav-number">6.1.</span> <span class="nav-text">Groq API Key</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Open-WebUI-%E9%80%A3%E6%8E%A5%E5%88%B0-Groq"><span class="nav-number">6.2.</span> <span class="nav-text">Open WebUI 連接到 Groq</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%81%B8%E6%93%87-Groq-%E6%A8%A1%E5%9E%8B"><span class="nav-number">6.3.</span> <span class="nav-text">選擇 Groq 模型</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%94%AF%E6%8F%B4-RAG-%E7%B3%BB%E7%B5%B1"><span class="nav-number">7.</span> <span class="nav-text">支援 RAG 系統</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%BE%8C%E8%A8%98"><span class="nav-number">8.</span> <span class="nav-text">後記</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
