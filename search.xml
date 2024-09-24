@@ -137,9 +137,12 @@ A --> B --> C --> A</pre>
 
 <h2 id="後記"><a href="#後記" class="headerlink" title="後記"></a>後記</h2><p>運行之後就可以把它當 ChatGPT 或是其他的 AI 聊天軟體使用了，下一章會將 Ollama 結合 Openweb UI，可以讓 AI 讀取電腦本機檔案，雖然這跟 ChatGPT 類似，但 Ollama + Open WebUI 是讓模型完全在本地運行，不用擔心資料外洩，而且 Ollama 和 Open WebUI 是免費的。</p>
 ]]></content>
+      <tags>
+        <tag>AI</tag>
+      </tags>
   </entry>
   <entry>
-    <title>WebUI</title>
+    <title>Open WebUI</title>
     <url>/2024/09/23/Open%20WebUI/</url>
     <content><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>上次介紹完了 Ollama ，這次要提供一個有趣 UI 介面，可以讓 Ollama 的模型有個更美觀的地方運行，看起來會專業很多，而且還可以讀取檔案進行推論。<span id="more"></span></p>
 <h1 id="Open-WebUI-介紹"><a href="#Open-WebUI-介紹" class="headerlink" title="Open WebUI 介紹"></a>Open WebUI 介紹</h1><p>Open WebUI 就是一個介面，可以選擇不同的 AI 模型來進行文字或檔案的處理，如同 ChatGPT的介面，然而他可以選則不同的模型，甚至也可以使用 ChatGPT 的 API 來使用 GPT-3, GPT-4o…等 Open AI 的模型。</p>
@@ -171,6 +174,9 @@ A --> B --> C --> A</pre>
 <h1 id="支援-RAG-系統"><a href="#支援-RAG-系統" class="headerlink" title="支援 RAG 系統"></a>支援 RAG 系統</h1><p>Open Web UI 是可以將檔案上傳後用選好的 LLM 模型進行推論，可以用來檢索文件，或是快速摘要都很方便。</p>
 <h1 id="後記"><a href="#後記" class="headerlink" title="後記"></a>後記</h1><p>之後會回歸 Jarvis Gama 版本，在 Gama 版本中，我會使用 Groq API 來讓 llama3.1 成為 Jarvis 的大腦，他的推論速度會比前兩版還要快速。</p>
 ]]></content>
+      <tags>
+        <tag>AI</tag>
+      </tags>
   </entry>
   <entry>
     <title>Welcome to Bakersite</title>
